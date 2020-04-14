@@ -1,5 +1,8 @@
 package com.cc.community.model;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
+
 public class User {
 
     private Integer id;
