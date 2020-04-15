@@ -24,7 +24,6 @@ public class IndexController {
                 User user = userMapper.findByToken(token);
                 if (user != null) {
                     request.getSession().setAttribute("user", user);
-                    System.out.println(user.toString());
                 }
                 break;
             }
