@@ -19,3 +19,6 @@ create table USER
 create unique index USER_ID_UINDEX
 	on USER (ID);
 ```
+```bash
+ mvn flyway:migrate
+```
