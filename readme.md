@@ -1,6 +1,7 @@
 **##资料**
 
 **##工具**
+[lombok](https://projectlombok.org) :使用@Data 可自动 set/get/to_string
 
 **##脚本**
 ```sql
