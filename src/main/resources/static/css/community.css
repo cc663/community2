@@ -22,3 +22,7 @@ body{
     font-weight: normal;
     color: #999;
 }
+
+.pull-right {
+    float: right!important;
+}
