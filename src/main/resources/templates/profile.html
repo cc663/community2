@@ -43,25 +43,25 @@
             <nav aria-label="Page navigation" th:if="${! myQuestionsPagination.questionDTOList.isEmpty()}">
                 <ul class="pagination pull-right">
                     <li th:if="${myQuestionsPagination.showFirstFlag} == true">
-                        <a th:href="@{/profile/questions/(page=1)}" aria-label="First">
+                        <a th:href="@{${section}(page=1)}" aria-label="First">
                             <span aria-hidden="true"><<</span>
                         </a>
                     </li>
                     <li th:if="${myQuestionsPagination.isShowPreviousFlag()} == true">
-                        <a th:href="@{/profile/questions/(page=${myQuestionsPagination.page}-1)}" aria-label="Previous">
+                        <a th:href="@{${section}(page=${myQuestionsPagination.page}-1)}" aria-label="Previous">
                             <span aria-hidden="true"><</span>
                         </a>
                     </li>
                     <li th:each="page_f : ${myQuestionsPagination.pages}" th:classappend="${myQuestionsPagination.page == page_f}? 'active'"><a
-                            th:href="@{/profile/questions/(page=${page_f})}" th:text="${page_f}"></a>
+                            th:href="@{${section}(page=${page_f})}" th:text="${page_f}"></a>
                     </li>
                     <li th:if="${myQuestionsPagination.isShowNextFlag()} == true">
-                        <a th:href="@{/profile/questions/(page=${myQuestionsPagination.page}+1)}" aria-label="Next">
+                        <a th:href="@{${section}(page=${myQuestionsPagination.page}+1)}" aria-label="Next">
                             <span aria-hidden="true">></span>
                         </a>
                     </li>
                     <li th:if="${myQuestionsPagination.isShowLastFlag()} == true">
-                        <a th:href="@{/profile/questions/(page=${myQuestionsPagination.size})}" aria-label="Last">
+                        <a th:href="@{${section}(page=${myQuestionsPagination.size})}" aria-label="Last">
                             <span aria-hidden="true">>></span>
                         </a>
                     </li>

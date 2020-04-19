@@ -30,6 +30,7 @@
                     <h4 class="media-heading" th:text="${question.getTitle()}"></h4>
                     <span th:text="${question.getDescription()}"></span><br>
                     <span class="text-desc">
+                        <span th:text="${question.getCreator()}"></span> 提出了问题 •
                         <span th:text="${question.getCommentCount()}"></span> 个回复 •
                         <span th:text="${question.getViewCount()}"></span> 次浏览 •
                         <span th:text="${question.getLikeCount()}"></span> 点赞 •
