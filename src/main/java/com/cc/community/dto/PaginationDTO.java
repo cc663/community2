@@ -118,10 +118,6 @@ public class PaginationDTO {
             pages.add(totalPages);
         }
 
-        //page == 1 && totalPages < 4
-        //page == 2 && totalPages < 5
-        //page == 3 && totalPages < 6
-        //totalPages < 7
         if (pages.isEmpty()) {
             for (int i = 1; i <= totalPages; i++) {
                 pages.add(i);

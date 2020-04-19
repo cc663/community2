@@ -67,4 +67,39 @@ public class QuestionService {
     }
 
 
+    public PaginationDTO listMyQuestions(Integer id, Integer page, Integer size) {
+        //获得所有问题数
+        PaginationDTO paginationDTO = new PaginationDTO();
+        Integer totalCount = null;
+        totalCount = questionMapper.countById(id);
+
+
+        //set分页属性
+        paginationDTO.setPagination(page, size, totalCount);
+
+        //获得验证后的page
+        page = paginationDTO.getPage();
+
+        //传入offset， 即limit的 偏移量
+        Integer offSet = size * (page - 1);
+
+        //验证question
+        List<Question> questionList = new ArrayList<>();
+        questionList = questionMapper.listById(offSet, size, id);
+
+        //通过question获得对应user，一起传进questionDTO中
+        List<QuestionDTO> listIndex = new ArrayList<>();
+        for (Question ques : questionList) {
+            User user = userMapper.findById(ques.getCreator());
+            QuestionDTO questionDTO = new QuestionDTO();
+            BeanUtils.copyProperties(ques, questionDTO);
+            questionDTO.setUser(user);
+            listIndex.add(questionDTO);
+        }
+
+        //传入分页
+        paginationDTO.setQuestionDTOList(listIndex);
+
+        return paginationDTO;
+    }
 }

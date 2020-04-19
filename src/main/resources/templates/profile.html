@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <title th:text="${sectionName}"></title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/css/community.css">
+    <script src="/js/jquery-3.5.0.min.js" type="application/javascript"></script>
+    <script src="/js/bootstrap.min.js" type="application/javascript"></script>
+</head>
+<body>
+
+<!--单独提取出表头-->
+<div th:insert="~{navigation :: nav}"></div>
+
+<div class="container-fluid main">
+    <div class="row">
+        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+            <h2><span th:text="${sectionName}"></span></h2>
+            <hr>
+            <div class="media" th:each="question : ${myQuestionsPagination.questionDTOList}" th:if="${! myQuestionsPagination.questionDTOList.isEmpty()}">
+                <div class="media-left">
+                    <a href="#">
+                        <img class="media-object img-rounded" th:src="@{${question.getUser().getAvatarUrl()}}">
+                    </a>
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading" th:text="${question.getTitle()}"></h4>
+                    <span th:text="${question.getDescription()}"></span><br>
+                    <span class="text-desc">
+                        <span th:text="${question.getCommentCount()}"></span> 个回复 •
+                        <span th:text="${question.getViewCount()}"></span> 次浏览 •
+                        <span th:text="${question.getLikeCount()}"></span> 点赞 •
+                        <span th:text="${#dates.format(question.gmtCreate, 'yyyy-MM-dd HH:mm')}"></span>
+                    </span>
+                </div>
+            </div>
+            <div class="alert alert-info" role="alert" th:if="${myQuestionsPagination.questionDTOList.isEmpty()}">你暂时没有提问！</div>
+
+            <!-- 分页功能-->
+            <nav aria-label="Page navigation" th:if="${! myQuestionsPagination.questionDTOList.isEmpty()}">
+                <ul class="pagination pull-right">
+                    <li th:if="${myQuestionsPagination.showFirstFlag} == true">
+                        <a th:href="@{/profile/questions/(page=1)}" aria-label="First">
+                            <span aria-hidden="true"><<</span>
+                        </a>
+                    </li>
+                    <li th:if="${myQuestionsPagination.isShowPreviousFlag()} == true">
+                        <a th:href="@{/profile/questions/(page=${myQuestionsPagination.page}-1)}" aria-label="Previous">
+                            <span aria-hidden="true"><</span>
+                        </a>
+                    </li>
+                    <li th:each="page_f : ${myQuestionsPagination.pages}" th:classappend="${myQuestionsPagination.page == page_f}? 'active'"><a
+                            th:href="@{/profile/questions/(page=${page_f})}" th:text="${page_f}"></a>
+                    </li>
+                    <li th:if="${myQuestionsPagination.isShowNextFlag()} == true">
+                        <a th:href="@{/profile/questions/(page=${myQuestionsPagination.page}+1)}" aria-label="Next">
+                            <span aria-hidden="true">></span>
+                        </a>
+                    </li>
+                    <li th:if="${myQuestionsPagination.isShowLastFlag()} == true">
+                        <a th:href="@{/profile/questions/(page=${myQuestionsPagination.size})}" aria-label="Last">
+                            <span aria-hidden="true">>></span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+        </div>
+        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 profile">
+            <div class="list-group section">
+                <a href="/profile/questions" class="list-group-item" th:classappend="${section == 'questions'}? 'active'">我的问题</a>
+                <a href="/profile/replies" class="list-group-item" th:classappend="${section == 'replies'}? 'active'"><span class="badge">14</span>最新回复</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -23,6 +23,6 @@ body{
     color: #999;
 }
 
-.pull-right {
-    float: right!important;
+.profile .section {
+    margin-top: 15px;
 }

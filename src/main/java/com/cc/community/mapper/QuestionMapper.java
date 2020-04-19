@@ -26,4 +26,10 @@ public interface QuestionMapper {
     @Select("select count(*) from question where title like '%'||#{title}||'%' ")
     Integer countByTitle(@Param("title") String title);
 
+    @Select("select count(*) from question where creator = #{creator}")
+    Integer countById(@Param("creator") Integer creator);
+
+    @Select("select * from question where creator = #{creator} limit #{offSet}, #{size}")
+    List<Question> listById(Integer offSet, Integer size, @Param("creator") Integer creator);
+
 }

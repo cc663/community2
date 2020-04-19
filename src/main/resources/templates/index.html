@@ -12,18 +12,8 @@
 </head>
 <body>
 
-<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-    <form class="navbar-form navbar-left" action="/" method="get">
-        <div class="form-group">
-            <input type="text" name="searchQuestion" id="searchQuestion" th:value="${searchQuestion}"
-                   class="form-control" placeholder="搜索问题">
-        </div>
-        <button type="submit" class="btn btn-default">搜索</button>
-    </form>
-
-    <div th:insert="~{navigation :: nav}"></div>
-
-</div>
+<!--单独提取出表头-->
+<div th:insert="~{navigation :: nav}"></div>
 
 <div class="container-fluid main">
     <div class="row">
