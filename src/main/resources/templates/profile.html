@@ -22,12 +22,13 @@
             <hr>
             <div class="media" th:each="question : ${myQuestionsPagination.questionDTOList}" th:if="${! myQuestionsPagination.questionDTOList.isEmpty()}">
                 <div class="media-left">
-                    <a href="#">
+                    <a th:href='@{#}'>
                         <img class="media-object img-rounded" th:src="@{${question.getUser().getAvatarUrl()}}">
                     </a>
                 </div>
                 <div class="media-body">
-                    <h4 class="media-heading" th:text="${question.getTitle()}"></h4>
+                    <a th:href="@{'/question/'+${question.getId()}}">
+                        <h4 class="media-heading" th:text="${question.getTitle()}"></h4></a>
                     <span th:text="${question.getDescription()}"></span><br>
                     <span class="text-desc">
                         <span th:text="${question.getCommentCount()}"></span> 个回复 •
