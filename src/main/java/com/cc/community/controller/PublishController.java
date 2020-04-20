@@ -43,7 +43,7 @@ public class PublishController {
     public String doPublish(@RequestParam("title") String title,
                             @RequestParam("description") String description,
                             @RequestParam("tag") String tag,
-                            @RequestParam(value = "id", defaultValue = "") Integer id,
+                            @RequestParam("id") Integer id,
                             HttpServletRequest request,
                             Model model) {
         //输入内容回显

@@ -1,7 +1,6 @@
 package com.cc.community.controller;
 
 import com.cc.community.dto.PaginationDTO;
-import com.cc.community.mapper.UserMapper;
 import com.cc.community.model.User;
 import com.cc.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
