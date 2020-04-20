@@ -3,10 +3,12 @@ package com.cc.community.controller;
 import com.cc.community.mapper.QuestionMapper;
 import com.cc.community.model.Question;
 import com.cc.community.model.User;
+import com.cc.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -18,8 +20,22 @@ public class PublishController {
     @Autowired
     private QuestionMapper questionMapper;
 
+    @Autowired
+    private QuestionService questionService;
+
     @GetMapping("/publish")
     public String publish() {
+        return "publish";
+    }
+
+    @GetMapping("/publish/{id}")
+    public String publish(@PathVariable("id") Integer id,
+                          Model model){
+        Question question = questionMapper.getById(id);
+        model.addAttribute("title",question.getTitle());
+        model.addAttribute("description", question.getDescription());
+        model.addAttribute("tag", question.getTitle());
+        model.addAttribute("id", id);
         return "publish";
     }
 
@@ -27,6 +43,7 @@ public class PublishController {
     public String doPublish(@RequestParam("title") String title,
                             @RequestParam("description") String description,
                             @RequestParam("tag") String tag,
+                            @RequestParam(value = "id", defaultValue = "") Integer id,
                             HttpServletRequest request,
                             Model model) {
         //输入内容回显
@@ -57,11 +74,18 @@ public class PublishController {
         question.setDescription(description);
         question.setTag(tag);
         question.setTitle(title);
-        question.setCreator(user.getId());
-        question.setGmtCreate(System.currentTimeMillis());
-        question.setGmtModified(question.getGmtCreate());
 
-        questionMapper.insertQuestion(question);
+        if (questionMapper.getById(id) == null){
+            question.setCreator(user.getId());
+            question.setGmtCreate(System.currentTimeMillis());
+            question.setGmtModified(question.getGmtCreate());
+            questionMapper.insertQuestion(question);
+        }else{
+            question.setId(id);
+            question.setGmtModified(System.currentTimeMillis());
+            questionMapper.update(question);
+        }
+
         return "redirect:/profile/questions";
     }
 }
