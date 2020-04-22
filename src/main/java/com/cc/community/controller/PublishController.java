@@ -2,6 +2,7 @@ package com.cc.community.controller;
 
 import com.cc.community.mapper.QuestionMapper;
 import com.cc.community.model.Question;
+import com.cc.community.model.QuestionExample;
 import com.cc.community.model.User;
 import com.cc.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 public class PublishController {
@@ -31,10 +33,10 @@ public class PublishController {
     @GetMapping("/publish/{id}")
     public String publish(@PathVariable("id") Integer id,
                           Model model){
-        Question question = questionMapper.getById(id);
+        Question question = questionMapper.selectByPrimaryKey(id);
         model.addAttribute("title",question.getTitle());
         model.addAttribute("description", question.getDescription());
-        model.addAttribute("tag", question.getTitle());
+        model.addAttribute("tag", question.getTag());
         model.addAttribute("id", id);
         return "publish";
     }
@@ -75,15 +77,17 @@ public class PublishController {
         question.setTag(tag);
         question.setTitle(title);
 
-        if (questionMapper.getById(id) == null){
+        if (id == null){
             question.setCreator(user.getId());
             question.setGmtCreate(System.currentTimeMillis());
             question.setGmtModified(question.getGmtCreate());
-            questionMapper.insertQuestion(question);
+            question.setCommentCount(0);
+//            question.setViewCount(0);
+            questionMapper.insert(question);
         }else{
-            question.setId(id);
             question.setGmtModified(System.currentTimeMillis());
-            questionMapper.update(question);
+            question.setId(id);
+            questionMapper.updateByPrimaryKeySelective(question);
         }
 
         return "redirect:/profile/questions";

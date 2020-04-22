@@ -34,7 +34,7 @@ public class AuthorizeController {
     private String redirect_uri;
 
     @Autowired
-    private UserService uservice;
+    private UserService userService;
 
 
 
@@ -59,7 +59,7 @@ public class AuthorizeController {
             user.setAccountId(String.valueOf(githubUser.getId()));
 
             user.setAvatarUrl(githubUser.getAvatarUrl());
-            uservice.createOrUpdate(user);
+            userService.createOrUpdate(user);
             //登陆成功，写入cookie 和session
             response.addCookie(new Cookie("token", token));
             return "redirect:/";
