@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <title>Spring Demo社区</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/css/community.css">
+    <script src="js/jquery-3.5.0.min.js" type="application/javascript"></script>
+    <script src="js/bootstrap.min.js" type="application/javascript"></script>
+</head>
+<body>
+
+<!--单独提取出表头-->
+<div th:insert="~{navigation :: nav}"></div>
+
+<div class="jumbotron error-style">
+    <h1>出错啦</h1>
+    <p th:text="${message}">服务器过热，稍等片刻</p>
+    <p><a class="btn btn-primary btn-lg" href="/" role="button">回到主页</a></p>
+</div>
+
+</div>
+</body>
+</html>

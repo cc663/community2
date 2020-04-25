@@ -31,3 +31,7 @@ body{
 .community-menu {
     color: #999;
 }
+
+.error-style {
+    margin: 80px;
+}
