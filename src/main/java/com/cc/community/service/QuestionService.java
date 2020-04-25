@@ -4,6 +4,7 @@ import com.cc.community.dto.PaginationDTO;
 import com.cc.community.dto.QuestionDTO;
 import com.cc.community.exception.CustomizeErrorCode;
 import com.cc.community.exception.CustomizeException;
+import com.cc.community.mapper.QuestionExtMapper;
 import com.cc.community.mapper.QuestionMapper;
 import com.cc.community.mapper.UserMapper;
 import com.cc.community.model.Question;
@@ -22,6 +23,9 @@ public class QuestionService {
 
     @Autowired
     private QuestionMapper questionMapper;
+
+    @Autowired
+    private QuestionExtMapper questionExtMapper;
 
     @Autowired
     private UserMapper userMapper;
@@ -123,4 +127,10 @@ public class QuestionService {
         return questionDTO;
     }
 
+    public void incView(Integer id) {
+        Question record = new Question();
+        record.setId(id);
+        record.setViewCount(1);
+        questionExtMapper.incView(record);
+    }
 }

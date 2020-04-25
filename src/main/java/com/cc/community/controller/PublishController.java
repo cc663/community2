@@ -82,7 +82,7 @@ public class PublishController {
             question.setGmtCreate(System.currentTimeMillis());
             question.setGmtModified(question.getGmtCreate());
             question.setCommentCount(0);
-//            question.setViewCount(0);
+            question.setViewCount(0);
             questionMapper.insert(question);
         }else{
             question.setGmtModified(System.currentTimeMillis());
