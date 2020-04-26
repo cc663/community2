@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 @Controller
 public class PublishController {
@@ -31,7 +30,7 @@ public class PublishController {
     }
 
     @GetMapping("/publish/{id}")
-    public String publish(@PathVariable("id") Integer id,
+    public String publish(@PathVariable("id") Long id,
                           Model model){
         Question question = questionMapper.selectByPrimaryKey(id);
         model.addAttribute("title",question.getTitle());
@@ -45,7 +44,7 @@ public class PublishController {
     public String doPublish(@RequestParam("title") String title,
                             @RequestParam("description") String description,
                             @RequestParam("tag") String tag,
-                            @RequestParam("id") Integer id,
+                            @RequestParam("id") Long id,
                             HttpServletRequest request,
                             Model model) {
         //输入内容回显
