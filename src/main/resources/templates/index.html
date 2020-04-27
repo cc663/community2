@@ -10,6 +10,13 @@
     <script src="js/jquery-3.5.0.min.js" type="application/javascript"></script>
     <script src="js/bootstrap.min.js" type="application/javascript"></script>
 </head>
+<script type="application/javascript">
+    let closeable = window.localStorage.getItem("closeable");
+    if (closeable == "true"){
+        window.close();
+        window.localStorage.removeItem("closeable");
+    }
+</script>
 <body>
 
 <!--单独提取出表头-->

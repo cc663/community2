@@ -1,0 +1,33 @@
+function post() {
+    const questionId = $("#question_id").val();
+    const content = $("#comment_content").val();
+    $.ajax({
+        contentType: "application/json",
+        type: "POST",
+        url:
+            "/comment",
+        data:
+            JSON.stringify({
+                "type": 1,
+                "content": content,
+                "parentId": questionId
+            }),
+        success:
+            function (response) {
+                if (response.code == 200){
+                    $("#comment_section").hide();
+                }else{
+                    if (response.code == 2003){
+                        let isAccepted= confirm(response.message);
+                        if (isAccepted){
+                            window.open("https://github.com/login/oauth/authorize?client_id=dceb5146c5f321081f81&redirect_uri=http://localhost:8087/callback&scope=user&state=1")
+                            window.localStorage.setItem("closeable","true");
+                        }
+                    }
+                    alert(response.message);
+                }
+                console.log(response);
+            },
+        dataType: "json"
+    });
+}
