@@ -44,3 +44,23 @@ body {
     margin: 10px 0;
 
 }
+
+.float-gly{
+    margin-top: 10px;
+    color: #999;
+    font-size: 15px;
+}
+
+.float-gly .flag{
+    cursor: pointer;
+    margin-right: 4px;
+}
+
+.float-gly .flag:hover{
+    color: #499ef3;
+}
+
+.comments{
+    margin-bottom: 15px;
+    border-bottom: 1px solid #999999;
+}

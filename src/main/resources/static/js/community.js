@@ -15,7 +15,8 @@ function post() {
         success:
             function (response) {
                 if (response.code == 200){
-                    $("#comment_section").hide();
+                    $("#comment_create").hide();
+                    parent.location.reload();
                 }else{
                     if (response.code == 2003){
                         let isAccepted= confirm(response.message);

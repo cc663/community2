@@ -1,16 +1,24 @@
 package com.cc.community.dto;
 
+import com.cc.community.model.User;
 import lombok.Data;
 
 /**
  * @program: community
- * @description: comment DTO
+ * @description: comment DTO from DB
  * @author: Chao
- * @create: 2020-04-25 14:19
+ * @create: 2020-04-28 09:29
  **/
 @Data
 public class CommentDTO {
+
+    private Long id;
     private Long parentId;
-    private String content;
     private Integer type;
+    private Long commenator;
+    private Long gmtCreate;
+    private Long gmtModified;
+    private Long likeCount;
+    private String content;
+    private User user;
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <html lang="en">
 <head>
     <title th:text="${question.title}"></title>
@@ -31,23 +31,47 @@
             <hr>
 
             <a class="community-menu" th:href="@{'/publish/'+${question.id}}"
-               th:if="${session.user!=null && question.creator == session.user.id}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> 编辑</a>
+               th:if="${session.user!=null && question.creator == session.user.id}"><span
+                    class="glyphicon glyphicon-pencil" aria-hidden="true"></span> 编辑 <hr></a>
 
-            <hr>
-            <div id="comment_section">
-            <div class="media">
-                <div class="media-left">
-                    <a th:href="@{#}">
-                        <img class="media-object img-rounded" th:src="@{${question.getUser().getAvatarUrl()}}">
-                    </a>
+            <div id="comment_view">
+                <h3><span th:text="${question.commentCount}"></span> 个回复: </h3>
+                <hr>
+                <div class="media"  th:each="comment : ${comments}">
+                    <div class="media-left">
+                        <a th:href="@{#}">
+                            <img class="media-object img-rounded" th:src="@{${comment.getUser().getAvatarUrl()}}">
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <h5 class="media-heading"><span th:text="${comment.commenator}"></span></h5>
+                        <div>
+                            <span th:text="${comment.content}"></span>
+                        </div>
+                        <div class="float-gly">
+                            <span class="glyphicon glyphicon-thumbs-up flag" aria-hidden="true"></span>
+                            <span class="glyphicon glyphicon-comment flag" aria-hidden="true"></span>
+                            <span class="pull-right" th:text="${#dates.format(comment.gmtCreate, 'yyyy-MM-dd')}"></span>
+                        </div>
+                    </div>
                 </div>
-                <div class="media-body">
-                    <span class="label label-info" th:text="${question.user.getName()}"></span>
-                </div>
+
             </div>
-            <input type="hidden" th:value="${question.id}" id="question_id"></input>
-                <textarea class="form-control comment" rows="6" id="comment_content" ></textarea>
-            <button type="submit" class="btn btn-success btn-publish " onclick="post()">回复</button>
+            <hr>
+            <div id="comment_create">
+                <div class="media">
+                    <div class="media-left">
+                        <a th:href="@{#}">
+                            <img class="media-object img-rounded" th:src="@{${question.getUser().getAvatarUrl()}}">
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <span class="label label-info" th:text="${question.user.getName()}"></span>
+                    </div>
+                </div>
+                <input type="hidden" th:value="${question.id}" id="question_id"></input>
+                <textarea class="form-control comment" rows="6" id="comment_content"></textarea>
+                <button type="submit" class="btn btn-success btn-publish " onclick="post()">回复</button>
             </div>
 
         </div>
@@ -61,7 +85,7 @@
                         </a>
                     </div>
                     <div class="media-body">
-                            <span class="label label-info" th:text="${question.user.getName()}"></span>
+                        <span class="label label-info" th:text="${question.user.getName()}"></span>
                     </div>
                 </div>
             </div>
