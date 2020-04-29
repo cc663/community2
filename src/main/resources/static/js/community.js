@@ -1,6 +1,10 @@
 function post() {
     const questionId = $("#question_id").val();
     const content = $("#comment_content").val();
+    if (!content){
+        alert("评论不能为空哦！");
+        return;
+    }
     $.ajax({
         contentType: "application/json",
         type: "POST",
@@ -27,7 +31,7 @@ function post() {
                     }
                     alert(response.message);
                 }
-                console.log(response);
+                console.log(response);//打印到浏览器控制台
             },
         dataType: "json"
     });

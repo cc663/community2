@@ -76,34 +76,6 @@ public class CommentService {
     }
 
 
-    public List<CommentDTO> listByQuestionId(Long id) {
-        CommentExample commentExample = new CommentExample();
-        commentExample.createCriteria().andParentIdEqualTo(id).andTypeEqualTo(CommentTypeEnum.QUESTION.getType());
-        List<Comment> comments = commentMapper.selectByExample(commentExample);
-
-        if (comments.size() == 0){
-            return new ArrayList<>();
-        }
-
-        Set<Long> commentators = comments.stream().map(comment -> comment.getCommenator()).collect(Collectors.toSet());
-        List<Long> userIds = new ArrayList<>();
-        userIds.addAll(commentators);
-
-        UserExample userExample = new UserExample();
-        userExample.createCriteria().andIdIn(userIds);
-        List<User> users = userMapper.selectByExample(userExample);
-        Map<Long, User> userMap = users.stream().collect(Collectors.toMap(user -> user.getId(), user -> user));
-
-        List<CommentDTO> commentDTOS = comments.stream().map(comment -> {
-            CommentDTO commentDTO = new CommentDTO();
-            BeanUtils.copyProperties(comment, commentDTO);
-            commentDTO.setUser(userMap.get(comment.getCommenator()));
-            return commentDTO;
-        }).collect(Collectors.toList());
-
-        return commentDTOS;
-    }
-
     public List<CommentDTO> getDTOlistByComments(List<Comment> comments){
         if (comments.size() == 0){
             return new ArrayList<>();
@@ -133,6 +105,7 @@ public class CommentService {
         PaginationDTO paginationDTO = new PaginationDTO();
         CommentExample commentExample = new CommentExample();
         commentExample.createCriteria().andParentIdEqualTo(id).andTypeEqualTo(CommentTypeEnum.QUESTION.getType());
+        commentExample.setOrderByClause("gmt_create desc");
         Integer totalCount = (int)commentMapper.countByExample(commentExample);
 
         //set分页属性

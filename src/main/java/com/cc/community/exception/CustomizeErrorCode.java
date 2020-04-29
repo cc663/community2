@@ -7,7 +7,8 @@ public enum CustomizeErrorCode implements ICustomizeErrorCode{
     SYS_ERROR(2004, "服务过热，请稍后再试！"),
     COM_TYPE_NOT_FOUND(2005, "评论类型不存在！" ),
     COM_NOT_FOUND(2006, "评论不在了啊！" ),
-    QUES_NOT_FOUND(2007,"问题不在了啊！" );
+    QUES_NOT_FOUND(2007,"问题不在了啊！" ),
+    CONTENT_IS_EMPTY(2008,"评论为空" );
 
     @Override
     public String getMessage() {

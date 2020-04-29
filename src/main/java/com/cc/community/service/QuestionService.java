@@ -31,15 +31,15 @@ public class QuestionService {
     private UserMapper userMapper;
 
 
-    public PaginationDTO list(Integer page, Integer size, String question) {
+    public PaginationDTO list(Integer page, Integer size, String searchQuestion) {
         //获得所有问题数
         PaginationDTO paginationDTO = new PaginationDTO();
         Integer totalCount = null;
-        if (question.length() == 0) {
+        if (searchQuestion.length() == 0) {
             totalCount = (int) questionMapper.countByExample(new QuestionExample());
         } else {
             QuestionExample questionExample = new QuestionExample();
-            questionExample.createCriteria().andTitleLike(question);
+            questionExample.createCriteria().andTitleLike("%"+searchQuestion+"%");
             totalCount = (int) questionMapper.countByExample(questionExample);
         }
 
@@ -54,11 +54,14 @@ public class QuestionService {
 
         //验证question
         List<Question> questionList = new ArrayList<>();
-        if (question.length() == 0) {
-            questionList = questionMapper.selectByExampleWithRowbounds(new QuestionExample(),new RowBounds(offSet, size));
+        if (searchQuestion.length() == 0) {
+            QuestionExample questionExample = new QuestionExample();
+            questionExample.setOrderByClause("gmt_create desc");
+            questionList = questionMapper.selectByExampleWithRowbounds(questionExample, new RowBounds(offSet, size));
         }else{
             QuestionExample questionExample = new QuestionExample();
-            questionExample.createCriteria().andTitleEqualTo(question);
+            questionExample.createCriteria().andTitleLike("%"+searchQuestion+"%");
+            questionExample.setOrderByClause("gmt_create desc");
             questionList = questionMapper.selectByExampleWithRowbounds(questionExample,new RowBounds(offSet, size));
         }
 
@@ -84,6 +87,7 @@ public class QuestionService {
         PaginationDTO paginationDTO = new PaginationDTO();
         QuestionExample questionExample = new QuestionExample();
         questionExample.createCriteria().andCreatorEqualTo(id);
+        questionExample.setOrderByClause("gmt_create desc");
         Integer totalCount = (int)questionMapper.countByExample(questionExample);
 
         //set分页属性
