@@ -64,3 +64,11 @@ body {
     margin-bottom: 15px;
     border-bottom: 1px solid #999999;
 }
+
+.nav-top{
+    margin-top: 20px;
+}
+
+.comment-top{
+    margin-top: 50px;
+}

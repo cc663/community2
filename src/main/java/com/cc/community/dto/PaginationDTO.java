@@ -8,7 +8,8 @@ import java.util.List;
 @Data
 public class PaginationDTO {
 
-    private List<QuestionDTO> questionDTOList = new ArrayList<>(); //当前页面显示的所有分页对象
+    private List<QuestionDTO> questionDTOList = new ArrayList<>(); //当前页面显示的所有分页对象 -- queations 分页
+    private List<CommentDTO> commentDTOList = new ArrayList<>(); //当前页面显示的所有分页对象  -- comments 分页
     private Integer page; //当前页码
     private List<Integer> pages = new ArrayList<>(); //当前展示的页码集合
     private Integer size; //所有页码数
