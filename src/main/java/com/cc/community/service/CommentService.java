@@ -76,6 +76,18 @@ public class CommentService {
     }
 
 
+    public List<CommentDTO> getDTOlistById(Long id, CommentTypeEnum typeEnum){
+        CommentExample commentExample = new CommentExample();
+        commentExample.createCriteria().andParentIdEqualTo(id).andTypeEqualTo(typeEnum.getType());
+        commentExample.setOrderByClause("gmt_create desc");
+
+        List<Comment> commentList = commentMapper.selectByExample(commentExample);
+        //通过question获得对应user，一起传进commentDTO中
+        List<CommentDTO> listIndex = getDTOlistByComments(commentList);
+
+        return listIndex;
+    }
+
     public List<CommentDTO> getDTOlistByComments(List<Comment> comments){
         if (comments.size() == 0){
             return new ArrayList<>();
@@ -120,7 +132,7 @@ public class CommentService {
         //取得当前页comment
         List<Comment> commentList = commentMapper.selectByExampleWithRowbounds(commentExample, new RowBounds(offSet, size));
 
-        //通过question获得对应user，一起传进questionDTO中
+        //通过question获得对应user，一起传进commentDTO中
         List<CommentDTO> listIndex = getDTOlistByComments(commentList);
 
         //传入分页
