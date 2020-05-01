@@ -60,6 +60,10 @@ body {
     color: #499ef3;
 }
 
+.comment-active{
+    color: #499ef3;
+}
+
 .comments{
     margin-bottom: 15px;
     border-bottom: 1px solid #999999;
@@ -71,4 +75,16 @@ body {
 
 .comment-top{
     margin-top: 50px;
+}
+
+.collapse-style{
+    margin-top: 10px;
+    border: 1px solid #eee;
+    padding-top: 15px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.text-margin{
+    margin-bottom: 17px;
 }

@@ -36,3 +36,21 @@ function post() {
         dataType: "json"
     });
 }
+
+function collapseIn(e) {
+    const ifView = e.getAttribute("collapse-status");
+    const v = e.getAttribute("id");
+    const c = $("#comment-"+v);
+
+    if (ifView){
+        //若显示 就折叠
+        c.removeClass("in");
+        e.removeAttribute("collapse-status");
+        e.classList.remove("comment-active");
+    }else{
+        //未显示 就显示且标记
+        c.addClass("in");
+        e.setAttribute("collapse-status", "in");
+        e.classList.add("comment-active");
+    }
+}

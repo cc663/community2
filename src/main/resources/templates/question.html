@@ -50,8 +50,28 @@
                         </div>
                         <div class="float-gly">
                             <span class="glyphicon glyphicon-thumbs-up flag" aria-hidden="true"></span>
-                            <span class="glyphicon glyphicon-comment flag" aria-hidden="true"></span>
+                            <span class="glyphicon glyphicon-comment flag" aria-hidden="true" th:id="${comment.id}" onclick="collapseIn(this)"></span>
                             <span class="pull-right" th:text="${#dates.format(comment.gmtCreate, 'yyyy-MM-dd')}"></span>
+                        </div>
+                        <div class="collapse collapse-style" th:id="'comment-'+${comment.id}">
+                            <div class="media"  th:each="comment : ${commentsDTO.commentDTOList}">
+                                <div class="media-left">
+                                    <a th:href="@{#}">
+                                        <img class="media-object img-rounded" th:src="@{${comment.getUser().getAvatarUrl()}}">
+                                    </a>
+                                </div>
+                                <div class="media-body">
+                                    <h5 class="media-heading"><span th:text="${comment.commenator}"></span></h5>
+                                    <div>
+                                        <span th:text="${comment.content}"></span>
+                                    </div>
+                                    <div class="float-gly">
+                                        <span class="pull-right" th:text="${#dates.format(comment.gmtCreate, 'yyyy-MM-dd')}"></span>
+                                    </div>
+                                </div>
+                                <hr>
+                            </div>
+                            <input type="text" class="form-control text-margin" placeholder="评论一下...">
                         </div>
                     </div>
                     <hr>
