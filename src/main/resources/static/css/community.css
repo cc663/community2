@@ -89,3 +89,7 @@ body {
 .text-margin{
     margin-bottom: 17px;
 }
+
+.badge-style{
+    margin-left: -17px;
+}

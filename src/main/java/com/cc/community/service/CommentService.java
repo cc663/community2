@@ -106,6 +106,9 @@ public class CommentService {
             CommentDTO commentDTO = new CommentDTO();
             BeanUtils.copyProperties(comment, commentDTO);
             commentDTO.setUser(userMap.get(comment.getCommenator()));
+            CommentExample commentExample = new CommentExample();
+            commentExample.createCriteria().andTypeEqualTo(CommentTypeEnum.COMMENT.getType()).andParentIdEqualTo(commentDTO.getId());
+            commentDTO.setCountOfSecondComments(commentMapper.countByExample(commentExample));
             return commentDTO;
         }).collect(Collectors.toList());
 

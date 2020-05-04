@@ -67,24 +67,22 @@ function get_second_comments(id){
         error: erryFunction,  //错误执行方法
         success: succFunction //成功执行方法
     })
-
     function LoadFunction() {
         $("#list").html('加载中...');
     }
     function erryFunction() {
         alert("error");
     }
-    function succFunction(tt) {
-        $("#list").html('');;
 
+    function succFunction(tt) {
         //eval将字符串转成对象数组
         //var json = { "id": "10086", "uname": "zhangsan", "email": "zhangsan@qq.com" };
         //json = eval(json);
         //alert("===json:id=" + json.id + ",uname=" + json.uname + ",email=" + json.email);
         const json = eval(tt).data; //数组
-        console.log(json);
-        let items = [];
-        $.each(json, function (index, item) {
+        var items = [];
+
+        $.each(json, function (index) {
             //循环获取数据
             var avatar = json[index].user.avatarUrl;
             var commenator = json[index].commenator;
@@ -92,15 +90,12 @@ function get_second_comments(id){
             var s_gmtCreate = json[index].gmtCreate;
             var gmtCreate = myformatter(new Date(s_gmtCreate));
 
-
-            for (let sElement of items += `<div class="media">
-
+            items += `<div class="media">
                                 <div class="media-left">
                                     <a th:href="@{#}">
                                         <img class="media-object img-rounded" src="${avatar}">
                                     </a>
                                 </div>
-
                                 <div class="media-body">
                                     <h5 class="media-heading">${commenator}</h5>
                                     <div>
@@ -110,14 +105,11 @@ function get_second_comments(id){
                                         <span class="pull-right">${gmtCreate}</span>
                                     </div>
                                 </div>
-
                                 <hr>
-
-                            </div>`) {
-                
-            }
+                            </div>`
         });
 
+        console.log(items);
         let c = $("#js-html");
         c.html(items);
     }

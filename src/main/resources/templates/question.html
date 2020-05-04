@@ -50,14 +50,16 @@
                         </div>
                         <div class="float-gly">
                             <span class="glyphicon glyphicon-thumbs-up flag" aria-hidden="true"></span>
-                            <span class="glyphicon glyphicon-comment flag" aria-hidden="true" th:id="${comment.id}" onclick="collapseIn(this)"></span>
+                            <span class="glyphicon glyphicon-comment flag" aria-hidden="true" th:id="${comment.id}"
+                                  onclick="collapseIn(this)">
+                                <span class="badge badge-style" th:if="${comment.countOfSecondComments != 0}" th:text="${comment.countOfSecondComments}"></span>
+                            </span>
                             <span class="pull-right" th:text="${#dates.format(comment.gmtCreate, 'yyyy-MM-dd')}"></span>
                         </div>
 
                         <!--二级评论-->
                         <div class="collapse collapse-style" th:id="'comment-'+${comment.id}">
                             <div id="js-html">
-
 <!--                            <div class="media"  th:each="comment : ${commentsDTO.commentDTOList}">-->
 
 <!--                                <div class="media-left">-->
