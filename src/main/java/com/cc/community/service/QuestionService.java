@@ -10,13 +10,16 @@ import com.cc.community.mapper.UserMapper;
 import com.cc.community.model.Question;
 import com.cc.community.model.QuestionExample;
 import com.cc.community.model.User;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class QuestionService {
@@ -136,5 +139,25 @@ public class QuestionService {
         record.setId(id);
         record.setViewCount(1);
         questionExtMapper.incView(record);
+    }
+
+    public List<QuestionDTO> selectRelatedQuestions(QuestionDTO queryDTO) {
+        if (StringUtils.isBlank(queryDTO.getTag())){
+            return new ArrayList<>();
+        }
+        String[] tags = StringUtils.split(queryDTO.getTag(), ',');
+        String regexpTag = Arrays.asList(tags).stream().collect(Collectors.joining("|"));
+        Question question = new Question();
+        question.setId(queryDTO.getId());
+        question.setTag(regexpTag);
+        List<Question> questions = questionExtMapper.selectRelatedList(question);
+
+        List<QuestionDTO> relatedQuestions = questions.stream().map(ques -> {
+            QuestionDTO questionDTO = new QuestionDTO();
+            BeanUtils.copyProperties(ques, questionDTO);
+            return questionDTO;
+        }).collect(Collectors.toList());
+
+        return relatedQuestions;
     }
 }

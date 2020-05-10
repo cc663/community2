@@ -1,5 +1,8 @@
 package com.cc.community.controller;
 
+import com.cc.community.dto.ResultDTO;
+import com.cc.community.exception.CustomizeErrorCode;
+import com.cc.community.exception.CustomizeException;
 import com.cc.community.mapper.QuestionMapper;
 import com.cc.community.model.Question;
 import com.cc.community.model.QuestionExample;
@@ -31,8 +34,14 @@ public class PublishController {
 
     @GetMapping("/publish/{id}")
     public String publish(@PathVariable("id") Long id,
+                          HttpServletRequest request,
                           Model model){
+
+        User user = (User) request.getSession().getAttribute("user");
         Question question = questionMapper.selectByPrimaryKey(id);
+        if (user.getId() != question.getCreator()){
+            throw new CustomizeException(CustomizeErrorCode.QUES_COULD_NOT_UPDATE);
+        }
         model.addAttribute("title",question.getTitle());
         model.addAttribute("description", question.getDescription());
         model.addAttribute("tag", question.getTag());

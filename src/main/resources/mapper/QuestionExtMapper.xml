@@ -30,4 +30,8 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
+  <select id="selectRelatedList" parameterType="com.cc.community.model.Question" resultMap="BaseResultMap">
+    select * from QUESTION where ID != #{id} and TAG regexp #{tag}
+  </select>
+
 </mapper>

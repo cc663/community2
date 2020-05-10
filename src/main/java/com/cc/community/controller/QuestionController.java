@@ -30,9 +30,11 @@ public class QuestionController {
                            Model model){
         QuestionDTO questionDTO = questionService.getById(id);
         questionService.incView(id);
+        List<QuestionDTO> relatedQuestions = questionService.selectRelatedQuestions(questionDTO);
         PaginationDTO commentsDTO = commentService.list(page, size, id);
         model.addAttribute("question",questionDTO);
         model.addAttribute("commentsDTO",commentsDTO);
+        model.addAttribute("relatedQuestions", relatedQuestions);
         return "question";
     }
 

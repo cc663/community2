@@ -8,7 +8,8 @@ public enum CustomizeErrorCode implements ICustomizeErrorCode{
     COM_TYPE_NOT_FOUND(2005, "评论类型不存在！" ),
     COM_NOT_FOUND(2006, "评论不在了啊！" ),
     QUES_NOT_FOUND(2007,"问题不在了啊！" ),
-    CONTENT_IS_EMPTY(2008,"评论为空" );
+    CONTENT_IS_EMPTY(2008,"评论为空" ),
+    QUES_COULD_NOT_UPDATE(2009,"您没有权利修改哦！" );
 
     @Override
     public String getMessage() {
